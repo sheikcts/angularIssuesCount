@@ -36,9 +36,9 @@ describe('AppComponent', () => {
   
   it('file change event should arrive in getFilesData', () => {
     const input  = fixture.nativeElement.querySelector('.file');
-    spyOn(component, 'getFilesData');
+    spyOn(component, 'getFilesData').and.callThrough();
     input.dispatchEvent(new Event('change'));
-	fixture.detectChanges();
+	  fixture.detectChanges();
     expect(component.getFilesData).toHaveBeenCalled();
   });
   
@@ -56,9 +56,9 @@ describe('AppComponent', () => {
   
   it('issue counter filter input change event should arrive in getIssueCount', () => {
     const input  = fixture.nativeElement.querySelector('.search');
-    spyOn(component, 'getIssueCount');
+    spyOn(component, 'getIssueCount').and.callThrough();
     input.dispatchEvent(new Event('input'));  
-	fixture.detectChanges();
+	  fixture.detectChanges();
     expect(component.getIssueCount).toHaveBeenCalled();
   });
 });
