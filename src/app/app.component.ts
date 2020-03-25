@@ -82,10 +82,17 @@ export class AppComponent {
 
   //Reset input fieds values
   fileReset() {
-    this.fileImportInput.nativeElement.value = "";
-	this.search.nativeElement.value = "";
+    if(this.fileImportInput) {
+      this.fileImportInput.nativeElement.value = "";
+    }
+    
+    if(this.search) {
+      this.search.nativeElement.value = "";
+    }
+	  
     this.issueList = [];
     this.totalRecords = [];
+    return true;
   }
 
 }

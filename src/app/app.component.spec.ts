@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { IssuecountService } from './services/issuecount.service';
+import { IssueList } from './interfaces/issue-list.interface';
+import { ElementRef, asNativeElements } from '@angular/core';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -41,6 +43,12 @@ describe('AppComponent', () => {
 	  fixture.detectChanges();
     expect(component.getFilesData).toHaveBeenCalled();
   });
+
+  it('should return error message if uploaded file is not csv', () => {
+	  const fileList = {files:[{name: 'foo.doc', lastModified: 1453752684198, size: 181}]};
+	  const result = component.getFilesData(fileList);
+		expect(component.errorMsg).toBe('Please upload valid .csv file!');
+	});
   
   it('should return true if file upload input is csv', () => {
 	  const fileList = {name: 'foo.csv', lastModified: 1453752684198, size: 181};
@@ -53,12 +61,18 @@ describe('AppComponent', () => {
 	  const result = component.isCSVFile(fileList);
 		expect(result).toBe(false);
 	});
-  
-  it('issue counter filter input change event should arrive in getIssueCount', () => {
+  it('should be able reset fields', () => {
+    spyOn(component, 'fileReset').and.callThrough();    
+    component.issueList = [{firstName: "Theo", surName: "Jansen", issueCount: 5, dob: "1978-01-02"}];
+    component.totalRecords = [{firstName: "Theo", surName: "Jansen", issueCount: 5, dob: "1978-01-02"}];
+    const result = component.fileReset();
+    expect(result).toBe(true);
+  });
+  /*it('issue counter filter input change event should arrive in getIssueCount', () => {
     const input  = fixture.nativeElement.querySelector('.search');
     spyOn(component, 'getIssueCount').and.callThrough();
     input.dispatchEvent(new Event('input'));  
 	  fixture.detectChanges();
     expect(component.getIssueCount).toHaveBeenCalled();
-  });
+  });*/
 });
