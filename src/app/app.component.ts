@@ -44,11 +44,13 @@ export class AppComponent {
           if(response['status']) {
             this.issueList = this.totalRecords = response['data'];
             this.successMsg = 'Data populated from uploaded file!';
+            if(this.search){
+              this.search.nativeElement.value = "";
+            }
           } else {
             this.issueList = this.totalRecords = [];
             this.errorMsg = 'Invalid CSV File Data!'
           }
-		      //this.search.nativeElement.value = "";
         };
 
         reader.onerror = function() {

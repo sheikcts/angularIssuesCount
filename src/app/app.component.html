@@ -10,9 +10,8 @@
       <ngb-alert *ngIf="errorMsg" type="danger" (close)="errorMsg = ''">{{errorMsg}}</ngb-alert>
     </div>
   </div>
-  <div class="jumbotron file-upload">
-    <form id='formData' #formdata method="post" enctype="multipart/form-data">
-    <div class="row csv-file-chooser-section">
+  <form id='formData' #formdata method="post" enctype="multipart/form-data">
+  <div class="row jumbotron file-upload"> 
       <div class="col-md-6 text-right">
         Upload CSV File:
       </div>
@@ -25,14 +24,11 @@
         (change)="getFilesData(fileImportInput)"
         accept=".csv"
         />
-      </div>
-    </div>
-	</form>
+      </div>	
   </div>
-  
-  <div *ngIf="totalRecords?.length > 0" class="container">
+</form>
+  <ng-container *ngIf="totalRecords?.length > 0" class="container">
   <div class="row justify-content-end">
-    <div class="col-md-4">
       <div class="form-group">
         <input 
         type="number" 
@@ -47,9 +43,8 @@
         digitOnly
         />
       </div>
-    </div>
   </div>
-  <div class="csv-result-table">
+  <div class="row csv-result-table">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -91,5 +86,5 @@
     </table>
   </div>
   <hr>
-</div>
+</ng-container>
 </div>
