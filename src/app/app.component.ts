@@ -39,10 +39,16 @@ export class AppComponent {
         reader.readAsText(uploadDataFiles[0]);
 
         reader.onload = () => {
-		      let fileData: string = reader.result as string;
-          this.issueList = this.totalRecords = this.issuecountService.postFormData(fileData);
+          let fileData: string = reader.result as string;
+          let response = this.issuecountService.postFormData(fileData);
+          if(response['status']) {
+            this.issueList = this.totalRecords = response['data'];
+            this.successMsg = 'Data populated from uploaded file!';
+          } else {
+            this.issueList = this.totalRecords = [];
+            this.errorMsg = 'Invalid CSV File Data!'
+          }
 		      //this.search.nativeElement.value = "";
-		      this.successMsg = 'Data populated from uploaded file!';
         };
 
         reader.onerror = function() {

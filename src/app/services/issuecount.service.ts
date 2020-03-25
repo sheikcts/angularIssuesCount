@@ -7,6 +7,7 @@ import { IssueList } from '.././interfaces/issue-list.interface';
 })
 export class IssuecountService {
   //public issueList: IssueList[];
+  public fileHeader: Array<string> = ["First name","Sur name","Issue count","Date of birth"];
   constructor() {}
   
   //Send array of data from uploaded file data
@@ -15,7 +16,13 @@ export class IssuecountService {
     if (csvData) {
       let csvRecordsArray = ( < string > csvData).split(/\r\n|\n/);
       let headersRow = this.getHeaderArray(csvRecordsArray);
-      response = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+      if(JSON.stringify(headersRow) === JSON.stringify(this.fileHeader)) {
+        response['data'] = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+        response['status'] = true;
+      } else {
+        response['status'] = false;
+      }
+      
     }
     return response;
   }
@@ -48,8 +55,8 @@ export class IssuecountService {
   getHeaderArray(csvRecordsArr: any) {
     let headers = ( < string > csvRecordsArr[0]).split(',');
     let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
-      headerArray.push(headers[j]);
+    for (let j = 0; j < headers.length; j++) {  
+      headerArray.push(headers[j].replace(/['"]+/g, ''));
     }
     return headerArray;
   }
