@@ -30,8 +30,8 @@ export class AppComponent {
   //Get uploaded files data
   getFilesData(files: any) {
     let uploadDataFiles: FileList = files.files;
-	this.successMsg = '';
-	this.errorMsg = '';
+	  this.successMsg = '';
+	  this.errorMsg = '';
     //this.file = uploadDataFiles[0];
 
       if (this.isCSVFile(uploadDataFiles[0])) {
@@ -39,10 +39,10 @@ export class AppComponent {
         reader.readAsText(uploadDataFiles[0]);
 
         reader.onload = () => {
-		  let fileData: string = reader.result as string;
+		      let fileData: string = reader.result as string;
           this.issueList = this.totalRecords = this.issuecountService.postFormData(fileData);
-		  this.search.nativeElement.value = "";
-		  this.successMsg = 'Data populated from uploaded file!';
+		      //this.search.nativeElement.value = "";
+		      this.successMsg = 'Data populated from uploaded file!';
         };
 
         reader.onerror = function() {
@@ -56,14 +56,13 @@ export class AppComponent {
 
   //Filter Issue count from uploaded file data
   getIssueCount(e: number) {
-	let records = [];
- 
+	  let records = [];
     if (e) {
       records = this.totalRecords.filter(c => c.issueCount == e);
     } else {
       records = this.totalRecords
     }
-	this.issueList = records
+	  this.issueList = records
   }
 
 

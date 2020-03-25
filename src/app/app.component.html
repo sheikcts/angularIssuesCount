@@ -6,11 +6,11 @@
 <div class="container">
   <div class="row row justify-content-center">
     <div class="col-md-offset-6 col-md-6">
-      <h4 *ngIf="successMsg" class="text-success">{{successMsg}}</h4>
-      <h4 *ngIf="errorMsg" class="text-danger">{{errorMsg}}</h4>
+      <ngb-alert *ngIf="successMsg" type="success" (close)="successMsg = ''">{{successMsg}}</ngb-alert>
+      <ngb-alert *ngIf="errorMsg" type="danger" (close)="errorMsg = ''">{{errorMsg}}</ngb-alert>
     </div>
   </div>
-  <div class="jumbotron">
+  <div class="jumbotron file-upload">
     <form id='formData' #formdata method="post" enctype="multipart/form-data">
     <div class="row csv-file-chooser-section">
       <div class="col-md-6 text-right">
@@ -30,6 +30,7 @@
 	</form>
   </div>
   
+  <div *ngIf="issueList" class="container">
   <div class="row justify-content-end">
     <div class="col-md-4">
       <div class="form-group">
@@ -60,6 +61,7 @@
         </tr>
       </thead>
       <tbody>
+        <ng-container *ngIf="issueList?.length > 0;else noRecords">
         <tr *ngFor="let csvData of issueList ;let i = index;">
           <th scope="row">{{i+1}}</th>
           <td>
@@ -75,8 +77,19 @@
             <span>{{csvData.dob | date : "dd/MM/y"}}</span>
           </td>
         </tr>
+      </ng-container>
+      <ng-template #noRecords>
+        <tr align="center">
+          <td colspan="5">
+            <ngb-alert [dismissible]="false">
+              No Records Available!
+            </ngb-alert>
+          </td>
+        </tr>
+      </ng-template>
       </tbody>
     </table>
   </div>
   <hr>
+</div>
 </div>

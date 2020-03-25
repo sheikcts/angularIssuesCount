@@ -28,13 +28,13 @@ export class IssuecountService {
       let data = (csvRecordsArray[i].replace(/['"]+/g, '')).split(',');
 
       // For each row in CSV file if the number of columns are same as header columns
-      if (data.length == headerLength) {debugger;
+      if (data.length == headerLength) {
       let csvRecord: IssueList[]=[
       {
         firstName: data[0].trim(),
         surName: data[1].trim(),
         issueCount: data[2].trim(),
-		dob: data[3].trim()
+		    dob: data[3].trim()
       }
       ];
    
