@@ -90,11 +90,4 @@ describe('AppComponent', () => {
     const result = component.fileReset();
     expect(result).toBe(true);
   });
-  /*it('issue counter filter input change event should arrive in getIssueCount', () => {
-    const input  = fixture.nativeElement.querySelector('.search');
-    spyOn(component, 'getIssueCount').and.callThrough();
-    input.dispatchEvent(new Event('input'));  
-	  fixture.detectChanges();
-    expect(component.getIssueCount).toHaveBeenCalled();
-  });*/
 });
