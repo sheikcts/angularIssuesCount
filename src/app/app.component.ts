@@ -63,7 +63,7 @@ export class AppComponent {
   }
 
   //Filter Issue count from uploaded file data
-  getIssueCount(e: number) {
+  getIssueCount(e) {
 	  let records = [];
     if (e) {
       records = this.totalRecords.filter(c => c.issueCount == e);

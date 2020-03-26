@@ -17,7 +17,7 @@ describe('AppComponent', () => {
     }).compileComponents();
 	fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-	service = TestBed.get(IssuecountService);
+	  service = TestBed.get(IssuecountService);
   }));
 
   it('should create the app', () => {
@@ -48,6 +48,28 @@ describe('AppComponent', () => {
 	  const fileList = {files:[{name: 'foo.doc', lastModified: 1453752684198, size: 181}]};
 	  const result = component.getFilesData(fileList);
 		expect(component.errorMsg).toBe('Please upload valid .csv file!');
+  });
+  
+  it('should able to filter records by issue count', () => {
+    const issueCount = 1;
+    component.totalRecords = [
+        {firstName: "Theo", surName: "Jansen", issueCount: 5, dob: "1978-01-02"},
+        {firstName: "Petra", surName: "Boersma", issueCount: 1, dob: "2001-04-20"}
+    ];
+    const result = component.getIssueCount(issueCount);
+    const filteredRecords = [
+      {firstName: "Petra", surName: "Boersma", issueCount: 1, dob: "2001-04-20"}
+    ];
+		expect(component.issueList).toEqual(filteredRecords);
+  });
+  
+  it('should able to return all records if empty of issueCount value', () => {
+    component.totalRecords = [
+        {firstName: "Theo", surName: "Jansen", issueCount: 5, dob: "1978-01-02"},
+        {firstName: "Petra", surName: "Boersma", issueCount: 1, dob: "2001-04-20"}
+    ];
+    const result = component.getIssueCount('');
+		expect(component.issueList).toEqual(component.totalRecords);
 	});
   
   it('should return true if file upload input is csv', () => {
